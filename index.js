@@ -8,7 +8,7 @@ dotenv.config();
 const server = http.createServer(app);
 const io = new Server(server,{
     cors: {
-        origin: "https://react-task-git-main-ajay-rathores-projects-1380d7fa.vercel.app/",
+        origin: "https://react-task-git-main-ajay-rathores-projects-1380d7fa.vercel.app",
         methods: ["GET", "POST"],
     }
 });

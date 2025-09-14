@@ -1,25 +1,27 @@
 import express from "express";
 import cors from "cors";
-import userRouter from "./routes/authRoutes.js"
+import userRouter from "./routes/authRoutes.js";
 const app = express();
 
 app.use(express.json());
-app.use(cors(
-    {
-    origin: "https://react-task-git-main-ajay-rathores-projects-1380d7fa.vercel.app"
-    }
-))
-
+app.use(
+  cors({
+    origin:
+      "https://react-task-git-main-ajay-rathores-projects-1380d7fa.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
+app.options("*", cors());
 app.get("/", (req, res) => {
-    res.send("API is working fine");
-})
+  res.send("API is working fine");
+});
 
-app.use('/',userRouter);
+app.use("/", userRouter);
 
 app.use((error, req, res, next) => {
-    res.status(500).json({ error: error.message });
-})
+  res.status(500).json({ error: error.message });
+});
 
-export {
-    app
-}
+export { app };
