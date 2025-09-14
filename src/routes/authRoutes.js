@@ -2,6 +2,7 @@ import { Router } from "express";
 import { User } from "../models/user.model.js";
 import { redisClient } from "../config/redis.js";
 import transporter from "../utils/mailer.js";
+import sgMail from "@sendgrid/mail";
 import bcrypt from "bcryptjs";
 import { Resend } from "resend";
 import { onlineUsers } from "../onlineUsers.js";
@@ -34,6 +35,7 @@ router.post("/signup", async (req, res) => {
   await redisClient.setex(`signup:${email}:mobileOtp`, 300, mobileOtp);
   await redisClient.setex(`signup:${email}:emailOtp`, 300, emailOtp);
   const resend = new Resend(process.env.RESEND_API_KEY)
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
   try {
     //   await transporter.sendMail({
     //     from: process.env.USER_EMAIL_ADDRESS,
@@ -42,13 +44,19 @@ router.post("/signup", async (req, res) => {
     //     text: `Your email OTP is ${emailOtp}`,
     //   });
     //   console.log("Email sent successfully");
-    await resend.emails.send({
-        from: "noreply@resend.com",
+    // await resend.emails.send({
+    //     from: "noreply@resend.com",
+    //     to: email,
+    //     subject: "OTP Verification",
+    //     text: `Your email OTP is ${emailOtp}`,
+    // });
+    await sgMail.send({
         to: email,
+        from:process.env.USER_EMAIL_ADDRESS,
         subject: "OTP Verification",
         text: `Your email OTP is ${emailOtp}`,
-    });
-    console.log("Email sent successfully");
+    })
+    console.log("Email sent successfully",email);
     } catch (emailError) {
       console.error("Email sending failed:", emailError);
       // Continue with the response even if email fails
