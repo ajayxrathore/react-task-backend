@@ -3,6 +3,7 @@ import { User } from "../models/user.model.js";
 import { redisClient } from "../config/redis.js";
 import transporter from "../utils/mailer.js";
 import bcrypt from "bcryptjs";
+import { Resend } from "resend";
 import { onlineUsers } from "../onlineUsers.js";
 const router = Router();
 
@@ -32,15 +33,22 @@ router.post("/signup", async (req, res) => {
   );
   await redisClient.setex(`signup:${email}:mobileOtp`, 300, mobileOtp);
   await redisClient.setex(`signup:${email}:emailOtp`, 300, emailOtp);
-
+  const resend = new Resend(process.env.RESEND_API_KEY)
   try {
-      await transporter.sendMail({
-        from: process.env.USER_EMAIL_ADDRESS,
+    //   await transporter.sendMail({
+    //     from: process.env.USER_EMAIL_ADDRESS,
+    //     to: email,
+    //     subject: "OTP Verification",
+    //     text: `Your email OTP is ${emailOtp}`,
+    //   });
+    //   console.log("Email sent successfully");
+    await resend.emails.send({
+        from: "noreply@resend.com",
         to: email,
         subject: "OTP Verification",
         text: `Your email OTP is ${emailOtp}`,
-      });
-      console.log("Email sent successfully");
+    });
+    console.log("Email sent successfully");
     } catch (emailError) {
       console.error("Email sending failed:", emailError);
       // Continue with the response even if email fails

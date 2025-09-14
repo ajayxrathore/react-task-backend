@@ -19,6 +19,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/", userRouter);
+// Add this to your app.js or index.js
 
 app.use((error, req, res, next) => {
   res.status(500).json({ error: error.message });
