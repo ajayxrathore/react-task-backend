@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(
   cors({
     origin:
-      "https://react-task-git-main-ajay-rathores-projects-1380d7fa.vercel.app",
+      "https://react-task-sigma-three.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,

@@ -10,7 +10,7 @@ const router = Router();
 function generateOtp() {
   return String(Math.floor(100000 + Math.random() * 900000));
 }
-router.post("signup", async (req, res) => {
+router.post("/signup", async (req, res) => {
   // Implement user registration logic here
   const { fullName, email, number, password } = req.body;
   if (!fullName || !email || !number || !password) {
@@ -47,7 +47,7 @@ router.post("signup", async (req, res) => {
   });
 });
 
-router.post("verify-otp", async (req, res) => {
+router.post("/verify-otp", async (req, res) => {
   try {
     const { email, emailOtp, mobileOtp } = req.body;
     if (!email || !emailOtp || !mobileOtp) {
@@ -81,7 +81,7 @@ router.post("verify-otp", async (req, res) => {
   }
 });
 
-router.post("login", async (req, res) => {
+router.post("/login", async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
     return res.status(400).json({ message: "All fields are required." });
@@ -99,7 +99,7 @@ router.post("login", async (req, res) => {
     message: "Login successful.",
   });
 });
-router.get("admin", async (req, res) => {
+router.get("/admin", async (req, res) => {
   try {
     const users = await User.find({}, "fullName email number");
     const result = users.map((user) => ({
