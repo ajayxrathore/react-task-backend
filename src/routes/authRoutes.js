@@ -33,12 +33,18 @@ router.post("/signup", async (req, res) => {
   await redisClient.setex(`signup:${email}:mobileOtp`, 300, mobileOtp);
   await redisClient.setex(`signup:${email}:emailOtp`, 300, emailOtp);
 
-  await transporter.sendMail({
-    from: process.env.USER_EMAIL_ADDRESS,
-    to: email,
-    subject: "OTP Verification",
-    text: `Your email OTP is ${emailOtp}`,
-  });
+  try {
+      await transporter.sendMail({
+        from: process.env.USER_EMAIL_ADDRESS,
+        to: email,
+        subject: "OTP Verification",
+        text: `Your email OTP is ${emailOtp}`,
+      });
+      console.log("Email sent successfully");
+    } catch (emailError) {
+      console.error("Email sending failed:", emailError);
+      // Continue with the response even if email fails
+    }
 
   res.status(201).json({
     ok: true,
