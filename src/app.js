@@ -13,7 +13,7 @@ app.use(
     credentials: true,
   })
 );
-app.options("*", cors());
+
 app.get("/", (req, res) => {
   res.send("API is working fine");
 });
