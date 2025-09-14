@@ -6,7 +6,7 @@ const app = express();
 app.use(express.json());
 app.use(cors(
     {
-    origin: "https://react-task-dt8ad1feb-ajay-rathores-projects-1380d7fa.vercel.app"
+    origin: "https://react-task-git-main-ajay-rathores-projects-1380d7fa.vercel.app"
     }
 ))
 
