@@ -8,9 +8,8 @@ dotenv.config();
 const server = http.createServer(app);
 const io = new Server(server,{
     cors: {
-        origin: "https://react-task-dt8ad1feb-ajay-rathores-projects-1380d7fa.vercel.app/",
+        origin: "https://react-task-dt8ad1feb-ajay-rathores-projects-1380d7fa.vercel.app",
         methods: ["GET", "POST"],
-        credentials: true,
     }
 });
 handleSocket(io);
