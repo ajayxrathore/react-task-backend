@@ -1,0 +1,24 @@
+{
+  "name": "react-task-backend",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "ioredis": "^5.7.0",
+    "mongoose": "^8.18.1",
+    "nodemailer": "^7.0.6",
+    "redis": "^5.8.2",
+    "socket.io": "^4.8.1",
+    "uninstall": "^0.0.0"
+  }
+}
