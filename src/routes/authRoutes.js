@@ -12,6 +12,8 @@ function generateOtp() {
 }
 router.post("/signup", async (req, res) => {
   // Implement user registration logic here
+  console.log(`we receiving signup request`);
+
   const { fullName, email, number, password } = req.body;
   if (!fullName || !email || !number || !password) {
     return res.status(400).json({ message: "All fields are required." });
